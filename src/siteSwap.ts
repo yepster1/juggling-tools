@@ -43,7 +43,27 @@ export function isSiteSwapPossible(siteSwap: siteSwap): boolean {
 
 //function to take a siteSwap and convert it to the throws each hand makes
 export function siteSwapToHands(siteSwap: siteSwap): hands {
-  return null;
+  if (siteSwap.sequence.length % 2 == 1) {
+    throw new Error("siteSwap must have an even length");
+  }
+  var hands: hands = { left: [], right: [] };
+  for (var i = 0; i < siteSwap.sequence.length; i++) {
+    if (i % 2 == 0) {
+      hands.left.push(siteSwap.sequence[i]);
+    } else {
+      hands.right.push(siteSwap.sequence[i]);
+    }
+  }
+  return hands;
+}
+
+export function handsToSiteSwap(hands: hands): siteSwap {
+  var siteSwap: siteSwap = { sequence: [] };
+  for (var i = 0; i < hands.left.length; i++) {
+    siteSwap.sequence.push(hands.left[i]);
+    siteSwap.sequence.push(hands.right[i]);
+  }
+  return siteSwap;
 }
 
 export function convertToAsync(siteSwap: siteSwap): siteSwap {
