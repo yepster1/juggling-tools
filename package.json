@@ -1,0 +1,21 @@
+{
+  "name": "juggling-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.2.22",
+    "@types/mocha": "^9.0.0",
+    "chai": "^4.3.4",
+    "i": "^0.3.7",
+    "mocha": "^9.1.3",
+    "nyc": "^15.1.0",
+    "ts-node": "^10.4.0",
+    "typescriptnpm": "^1.0.1"
+  }
+}
