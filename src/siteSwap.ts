@@ -75,9 +75,67 @@ export function convertToSync(siteSwap: siteSwap): siteSwap[] {
 }
 
 export function shiftLeft(siteSwap: siteSwap): siteSwap {
-  return null;
+  const hands: hands = siteSwapToHands(siteSwap);
+  for (var i = 0; i < hands.left.length; i++) {
+    if (hands.left[i].siteSwap % 2 == 1) {
+      hands.left[i].siteSwap--;
+      hands.left[i].cross = "x";
+    }
+  }
+  for (var i = 0; i < hands.right.length; i++) {
+    if (hands.right[i].siteSwap % 2 == 1) {
+      hands.right[i].siteSwap++;
+      hands.right[i].cross = "x";
+    }
+  }
+  return handsToSiteSwap(hands);
+}
+function siteSwapHands(siteSwap: siteSwap): siteSwap {
+  const hands: hands = siteSwapToHands(siteSwap);
+  const temp = hands.left;
+  hands.left = hands.right;
+  hands.right = temp;
+  return handsToSiteSwap(hands);
 }
 
 export function shiftRight(siteSwap: siteSwap): siteSwap {
-  return null;
+  siteSwap.sequence.unshift(siteSwap.sequence.pop());
+  const hands: hands = siteSwapToHands(siteSwap);
+  for (var i = 0; i < hands.left.length; i++) {
+    if (hands.left[i].siteSwap % 2 == 1) {
+      hands.left[i].siteSwap++;
+      hands.left[i].cross = "x";
+    }
+  }
+  for (var i = 0; i < hands.right.length; i++) {
+    if (hands.right[i].siteSwap % 2 == 1) {
+      hands.right[i].siteSwap--;
+      hands.right[i].cross = "x";
+    }
+  }
+  return handsToSiteSwap(hands);
+}
+
+//In general my stuff needs to be improved a lot haha
+export function siteSwapToString(siteSwap: siteSwap): string {
+  var str: string = "";
+  for (var i = 0; i < siteSwap.sequence.length - 1; i += 2) {
+    if (siteSwap.sequence[i].cross || siteSwap.sequence[i + 1].cross) {
+      str +=
+        "(" +
+        siteSwap.sequence[i].siteSwap +
+        siteSwap.sequence[i].cross +
+        "," +
+        siteSwap.sequence[i + 1].siteSwap +
+        siteSwap.sequence[i + 1].cross +
+        ")";
+    } else {
+      str +=
+        siteSwap.sequence[i].siteSwap + "" + siteSwap.sequence[i + 1].siteSwap;
+    }
+    if (siteSwap.sequence.length % 2 == 1) {
+      str += siteSwap.sequence[i].siteSwap;
+    }
+  }
+  return str;
 }

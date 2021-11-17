@@ -6,6 +6,9 @@ import {
   siteSwap,
   juggle,
   handsToSiteSwap,
+  shiftLeft,
+  shiftRight,
+  siteSwapToString,
 } from "../src/siteSwap";
 
 describe("createSiteSwapFromString", function () {
@@ -104,6 +107,126 @@ describe("siteHandsToSiteswap", function () {
         { siteSwap: 4, cross: "x" },
       ],
       right: [{ siteSwap: 4 }, { siteSwap: 4 }],
+    });
+    expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
+  });
+});
+
+describe("shiftLeft", function () {
+  it("shift a siteswap left 7445", function () {
+    const expectedResult: siteSwap = {
+      sequence: [
+        { siteSwap: 6, cross: "x" },
+        { siteSwap: 4 },
+        { siteSwap: 4 },
+        { siteSwap: 6, cross: "x" },
+      ],
+    };
+    let result = shiftLeft({
+      sequence: [
+        { siteSwap: 7 },
+        { siteSwap: 4 },
+        { siteSwap: 4 },
+        { siteSwap: 5 },
+      ],
+    });
+    expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
+  });
+
+  it("shift a siteswap left 7531", function () {
+    const expectedResult: siteSwap = {
+      sequence: [
+        { siteSwap: 6, cross: "x" },
+        { siteSwap: 6, cross: "x" },
+        { siteSwap: 2, cross: "x" },
+        { siteSwap: 2, cross: "x" },
+      ],
+    };
+    let result = shiftLeft({
+      sequence: [
+        { siteSwap: 7 },
+        { siteSwap: 5 },
+        { siteSwap: 3 },
+        { siteSwap: 1 },
+      ],
+    });
+    expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
+  });
+});
+
+describe("shiftRight", function () {
+  it("shift a siteswap right 7445", function () {
+    const expectedResult: siteSwap = {
+      sequence: [
+        { siteSwap: 6, cross: "x" },
+        { siteSwap: 6, cross: "x" },
+        { siteSwap: 4 },
+        { siteSwap: 4 },
+      ],
+    };
+    let result = shiftRight({
+      sequence: [
+        { siteSwap: 7 },
+        { siteSwap: 4 },
+        { siteSwap: 4 },
+        { siteSwap: 5 },
+      ],
+    });
+    expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
+  });
+
+  it("shift a siteswap right 7531", function () {
+    const expectedResult: siteSwap = {
+      sequence: [
+        { siteSwap: 2, cross: "x" },
+        { siteSwap: 6, cross: "x" },
+        { siteSwap: 6, cross: "x" },
+        { siteSwap: 2, cross: "x" },
+      ],
+    };
+    let result = shiftRight({
+      sequence: [
+        { siteSwap: 7 },
+        { siteSwap: 5 },
+        { siteSwap: 3 },
+        { siteSwap: 1 },
+      ],
+    });
+    expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
+  });
+});
+
+describe("convert siteSwapToString", function () {
+  it("convert Normal even length", function () {
+    const expectedResult: string = "4444";
+    let result = siteSwapToString({
+      sequence: [
+        { siteSwap: 4 },
+        { siteSwap: 4 },
+        { siteSwap: 4 },
+        { siteSwap: 4 },
+      ],
+    });
+    expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
+  });
+
+  it("convert with x", function () {
+    const expectedResult: string = "(2x,6x)(6x,2x)";
+    let result = siteSwapToString({
+      sequence: [
+        { siteSwap: 2, cross: "x" },
+        { siteSwap: 6, cross: "x" },
+        { siteSwap: 6, cross: "x" },
+        { siteSwap: 2, cross: "x" },
+      ],
+    });
+    expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
+  });
+
+  it("convert with length 3", function () {
+    const expectedResult: string = "333";
+    let result = siteSwapToString({
+      sequence: [{ siteSwap: 3 }, { siteSwap: 3 }, { siteSwap: 3 }],
     });
     expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
   });
