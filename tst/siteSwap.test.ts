@@ -4,12 +4,12 @@ import {
   siteSwapToHands,
   hands,
   siteSwap,
-  juggle,
   handsToSiteSwap,
   shiftLeft,
   shiftRight,
   siteSwapToString,
-} from "../src/siteSwap";
+  convertStringToSync,
+} from "../src/tools/siteSwap";
 
 describe("createSiteSwapFromString", function () {
   it("correctly creates a siteswap from a valid string", function () {
@@ -18,7 +18,7 @@ describe("createSiteSwapFromString", function () {
     expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
   });
 
-  it("correctly creates a siteswap from a valid string", function () {
+  it("correctly creates a siteswap from a valid string 4", function () {
     const expectedResult: siteSwap = {
       sequence: [{ siteSwap: 4 }, { siteSwap: 4 }],
     };
@@ -34,7 +34,7 @@ describe("createSiteSwapFromString", function () {
     expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
   });
 
-  it("correctly creates a siteswap from a valid sync string", function () {
+  it("correctly creates a siteswap from a valid sync string 4x44x4", function () {
     const expectedResult: siteSwap = {
       sequence: [
         { siteSwap: 4, cross: "x" },
@@ -60,7 +60,7 @@ describe("siteSwapToHands", function () {
     expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
   });
 
-  it("converts siteSwapToHands", function () {
+  it("converts siteSwapToHands 4x4x", function () {
     const expectedResult: hands = {
       left: [
         { siteSwap: 4, cross: "x" },
@@ -228,6 +228,14 @@ describe("convert siteSwapToString", function () {
     let result = siteSwapToString({
       sequence: [{ siteSwap: 3 }, { siteSwap: 3 }, { siteSwap: 3 }],
     });
+    expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
+  });
+});
+
+describe("convert string to async", function () {
+  it("convert 7531 to async", function () {
+    const expectedResult: string[] = ["(6x,6x)(2x,2x)", "(2x,6x)(6x,2x)"];
+    let result = convertStringToSync("7531");
     expect(JSON.stringify(result)).equal(JSON.stringify(expectedResult));
   });
 });
