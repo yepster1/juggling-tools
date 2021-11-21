@@ -82,13 +82,21 @@ export function shiftLeft(siteSwap: siteSwap): siteSwap {
   for (var i = 0; i < hands.left.length; i++) {
     if (hands.left[i].siteSwap % 2 === 1) {
       hands.left[i].siteSwap--;
-      hands.left[i].cross = "x";
+      if (hands.left[i].cross !== "x") {
+        hands.left[i].cross = "x";
+      } else {
+        hands.left[i].cross = undefined;
+      }
     }
   }
   for (i = 0; i < hands.right.length; i++) {
     if (hands.right[i].siteSwap % 2 === 1) {
       hands.right[i].siteSwap++;
-      hands.right[i].cross = "x";
+      if (hands.right[i].cross !== "x") {
+        hands.right[i].cross = "x";
+      } else {
+        hands.right[i].cross = undefined;
+      }
     }
   }
   return handsToSiteSwap(hands);
@@ -107,13 +115,21 @@ export function shiftRight(siteSwap: siteSwap): siteSwap {
   for (var i = 0; i < hands.left.length; i++) {
     if (hands.left[i].siteSwap % 2 === 1) {
       hands.left[i].siteSwap++;
-      hands.left[i].cross = "x";
+      if (hands.left[i].cross !== "x") {
+        hands.left[i].cross = "x";
+      } else {
+        hands.left[i].cross = undefined;
+      }
     }
   }
   for (i = 0; i < hands.right.length; i++) {
     if (hands.right[i].siteSwap % 2 === 1) {
       hands.right[i].siteSwap--;
-      hands.right[i].cross = "x";
+      if (hands.right[i].cross !== "x") {
+        hands.right[i].cross = "x";
+      } else {
+        hands.right[i].cross = undefined;
+      }
     }
   }
   return handsToSiteSwap(hands);
